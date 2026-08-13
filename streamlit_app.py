@@ -1,10 +1,13 @@
 import streamlit as st
 import tensorflow as tf
-from tensorflow.keras.models import load_model
 import cv2
 import numpy as np
 from PIL import Image
 import os
+
+# Load model function
+def load_model(model_path):
+    return tf.keras.models.load_model(model_path)
 
 # Page config
 st.set_page_config(page_title="Pizza Classifier", layout="centered")
@@ -16,11 +19,11 @@ st.write("Upload an image to classify if it's pizza or not pizza!")
 # Load model
 @st.cache_resource
 def load_trained_model():
-    model_path = "SRC/mlp_model.keras"
+    model_path = "Src/model.keras"
     if os.path.exists(model_path):
         return load_model(model_path)
     else:
-        st.error("Model file 'mlp_model.keras' not found!")
+        st.error("Model file 'model.keras' not found!")
         return None
 
 # Image preprocessing
